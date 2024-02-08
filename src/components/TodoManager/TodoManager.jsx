@@ -1,4 +1,3 @@
-// TodoManager.js
 import React, { useState } from "react";
 import TodoForm from "../TodoForm/TodoForm";
 import { v4 as uuidv4 } from "uuid";
@@ -42,7 +41,6 @@ const TodoManager = () => {
       )
     );
   };
-
   const editTodo = (id) => {
     setTodos(
       todos.map((todo) =>
@@ -54,9 +52,7 @@ const TodoManager = () => {
   const editTask = (task, id, priority) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, task, priority, isEditing: !todo.isEditing }
-          : todo
+        todo.id === id ? { ...todo, task, priority, isEditing: false } : todo
       )
     );
   };
@@ -65,7 +61,12 @@ const TodoManager = () => {
   const incompleteTodos = todos.filter((todo) => !todo.completed);
 
   return (
-    <div className="bg-gray-400 mt-20 p-8 rounded-lg">
+    <div className="bg-[#000000] mt-20 p-8 border-color rounded">
+      <div className="flex justify-center ">
+        <button className="text-white font-bold px-8 py-2 bg-gradient-to-br from-pink-600 to-orange-500 my-4 rounded-md">
+          Todo List
+        </button>
+      </div>
       <TodoForm addTodo={addTodo} />
       {tasksAdded && incompleteTodos.length > 0 && (
         <div>
@@ -77,6 +78,7 @@ const TodoManager = () => {
               deleteTodo={deleteTodo}
               toggleTodo={toggleTodo}
               editTodo={editTodo}
+              editTask={editTask}
               priorityColors={priorityColors}
             />
           ))}

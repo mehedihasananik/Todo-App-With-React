@@ -26,7 +26,7 @@ const TodoForm = ({ addTodo }) => {
         <select
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
-          className="outline-none bg-transparent border border-purple-300 px-4 py-2 mt-4 mb-8 w-72 text-white"
+          className=" bg-black text-white outline-none border border-purple-300 px-4 py-2 mt-4 mb-8 w-25 mx-4"
         >
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -34,7 +34,7 @@ const TodoForm = ({ addTodo }) => {
         </select>
         <button
           type="submit"
-          className="bg-green-500 text-white border-none py-2 px-3 rounded cursor-pointer"
+          className="bg-green-500 text-white font-bold py-2.5 px-3  mx-3 rounded cursor-pointer"
         >
           Add Task
         </button>
