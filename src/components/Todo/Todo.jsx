@@ -7,6 +7,9 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo }) => {
     priorityColor = "red";
   }
 
+  // Combine task name and priority for display
+  const taskWithPriority = `${todo.task} (${todo.priority})`;
+
   return (
     <div
       style={{ backgroundColor: priorityColor }} // Apply background color style
@@ -14,13 +17,9 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo }) => {
     >
       <p
         onClick={() => toggleTodo(todo.id)}
-        className={`${
-          todo.completed
-            ? "text-black line-through cursor-pointer"
-            : "cursor-pointer"
-        }`}
+        className={`${todo.completed ? "line-through" : ""} cursor-pointer`}
       >
-        {todo.task}
+        {taskWithPriority} {/* Display task name with priority */}
       </p>
       <div>
         <button
