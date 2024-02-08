@@ -1,11 +1,10 @@
 import "./App.css";
+import TodoManager from "./components/TodoManager/TodoManager";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold text-red-500 underline">
-        Hello world!
-      </h1>
+      <TodoManager />
     </>
   );
 }
