@@ -1,12 +1,23 @@
-const Todo = ({ todo, deleTodo, toggleTodo, editTodo }) => {
+const Todo = ({ todo, deleteTodo, toggleTodo, editTodo }) => {
+  // Determine background color based on priority
+  let priorityColor = "blue"; // Default color for low priority
+  if (todo.priority === "medium") {
+    priorityColor = "yellow";
+  } else if (todo.priority === "high") {
+    priorityColor = "red";
+  }
+
   return (
-    <div className="flex justify-between items-center bg-green-500 text-white p-3 rounded mb-4">
+    <div
+      style={{ backgroundColor: priorityColor }} // Apply background color style
+      className="flex justify-between items-center text-white p-3 rounded mb-4"
+    >
       <p
         onClick={() => toggleTodo(todo.id)}
         className={`${
           todo.completed
-            ? "text-black line-through cursor-pointer "
-            : "text-white cursor-pointer "
+            ? "text-black line-through cursor-pointer"
+            : "cursor-pointer"
         }`}
       >
         {todo.task}
@@ -19,8 +30,8 @@ const Todo = ({ todo, deleTodo, toggleTodo, editTodo }) => {
           Edit
         </button>
         <button
-          className=" bg-red-500 text-white px-4 py-2"
-          onClick={() => deleTodo(todo.id)}
+          className="bg-red-500 text-white px-4 py-2"
+          onClick={() => deleteTodo(todo.id)}
         >
           Del
         </button>

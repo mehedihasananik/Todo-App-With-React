@@ -5,22 +5,33 @@ import EditTodo from "../EditTodo/EditTodo";
 import Todo from "../Todo/Todo";
 
 const TodoManager = () => {
-  const [todos, setTodoes] = useState([]);
+  const [todos, setTodos] = useState([]);
+
+  const priorityColors = {
+    low: "blue",
+    medium: "yellow",
+    high: "red",
+  };
 
   const addTodo = (todo) => {
-    setTodoes([
+    setTodos([
       ...todos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false },
+      {
+        id: uuidv4(),
+        task: todo.task,
+        completed: false,
+        isEditing: false,
+        priority: todo.priority,
+      },
     ]);
   };
-  console.log(todos);
 
-  const deleTodo = (id) => {
-    setTodoes(todos.filter((todo) => todo.id !== id));
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   const toggleTodo = (id) => {
-    setTodoes(
+    setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
@@ -28,17 +39,19 @@ const TodoManager = () => {
   };
 
   const editTodo = (id) => {
-    setTodoes(
+    setTodos(
       todos.map((todo) =>
-        todo.id == id ? { ...todo, isEditing: !todo.isEditing } : todo
+        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
       )
     );
   };
 
-  const editTask = (task, id) => {
-    setTodoes(
+  const editTask = (task, id, priority) => {
+    setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
+        todo.id === id
+          ? { ...todo, task, priority, isEditing: !todo.isEditing }
+          : todo
       )
     );
   };
@@ -53,9 +66,10 @@ const TodoManager = () => {
           <Todo
             key={todo.id}
             todo={todo}
-            deleTodo={deleTodo}
+            deleteTodo={deleteTodo}
             toggleTodo={toggleTodo}
             editTodo={editTodo}
+            priorityColors={priorityColors} // Pass priorityColors as prop
           />
         )
       )}

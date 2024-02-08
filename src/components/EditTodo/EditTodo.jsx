@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const EditTodo = ({ todo, editTask }) => {
   const [value, setValue] = useState(todo.task);
 
@@ -9,9 +7,9 @@ const EditTodo = ({ todo, editTask }) => {
       editTask(value, todo.id);
     }
   };
+
   return (
     <div>
-      {" "}
       <form onSubmit={handleSubmit} className="w-full mb-4">
         <input
           type="text"
