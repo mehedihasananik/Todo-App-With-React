@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TodoForm from "../TodoForm/TodoForm";
 import { v4 as uuidv4 } from "uuid";
+import EditTodo from "../EditTodo/EditTodo";
+import Todo from "../Todo/Todo";
 
 const TodoManager = () => {
   const [todos, setTodoes] = useState([]);
@@ -44,6 +46,19 @@ const TodoManager = () => {
   return (
     <div>
       <TodoForm addTodo={addTodo} />
+      {todos.map((todo) =>
+        todo.isEditing ? (
+          <EditTodo key={todo.id} todo={todo} editTask={editTask} />
+        ) : (
+          <Todo
+            key={todo.id}
+            todo={todo}
+            deleTodo={deleTodo}
+            toggleTodo={toggleTodo}
+            editTodo={editTodo}
+          />
+        )
+      )}
     </div>
   );
 };
