@@ -1,3 +1,6 @@
+// Todo.js
+import React from "react";
+
 const Todo = ({ todo, deleteTodo, toggleTodo, editTodo }) => {
   // Determine background color based on priority
   let priorityColor = "blue"; // Default color for low priority
@@ -15,12 +18,17 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo }) => {
       style={{ backgroundColor: priorityColor }} // Apply background color style
       className="flex justify-between items-center text-white p-3 rounded mb-4"
     >
-      <p
-        onClick={() => toggleTodo(todo.id)}
-        className={`${todo.completed ? "line-through" : ""} cursor-pointer`}
-      >
-        {taskWithPriority} {/* Display task name with priority */}
-      </p>
+      <label className="flex items-center">
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => toggleTodo(todo.id)}
+          className="mr-2 cursor-pointer"
+        />
+        <p className={`${todo.completed ? "line-through" : ""} cursor-pointer`}>
+          {taskWithPriority} {/* Display task name with priority */}
+        </p>
+      </label>
       <div>
         <button
           className="mx-2 bg-red-500 text-white px-4 py-2"
@@ -32,7 +40,7 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo }) => {
           className="bg-red-500 text-white px-4 py-2"
           onClick={() => deleteTodo(todo.id)}
         >
-          Del
+          Delete
         </button>
       </div>
     </div>
