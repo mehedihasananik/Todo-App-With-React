@@ -44,7 +44,7 @@ const TodoManager = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-400 mt-20 p-8 rounded-lg">
       <TodoForm addTodo={addTodo} />
       {todos.map((todo) =>
         todo.isEditing ? (
