@@ -6,6 +6,8 @@ import Todo from "../Todo/Todo";
 const TodoManager = () => {
   const [todos, setTodos] = useState([]);
   const [tasksAdded, setTasksAdded] = useState(false);
+  const [totalTasks, setTotalTasks] = useState(0);
+  const [completedTasks, setCompletedTasks] = useState(0);
 
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
@@ -16,6 +18,9 @@ const TodoManager = () => {
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
+    // Update total and completed tasks counts
+    setTotalTasks(todos.length);
+    setCompletedTasks(todos.filter((todo) => todo.completed).length);
   }, [todos]);
 
   const priorityColors = {
@@ -77,7 +82,10 @@ const TodoManager = () => {
       <TodoForm addTodo={addTodo} />
 
       <div>
-        <h2 className="text-white py-3">Incomplete Tasks :</h2>
+        {incompleteTodos.length && (
+          <h2 className="text-white py-3">Incomplete Tasks :</h2>
+        )}
+
         {incompleteTodos.map((todo) => (
           <Todo
             key={todo.id}
@@ -92,7 +100,10 @@ const TodoManager = () => {
       </div>
 
       <div>
-        <h2 className="text-white py-3">Completed Tasks :</h2>
+        {completedTodos.length && (
+          <h2 className="text-white py-3">Completed Tasks :</h2>
+        )}
+
         {completedTodos.map((todo) => (
           <Todo
             key={todo.id}
@@ -104,6 +115,14 @@ const TodoManager = () => {
           />
         ))}
       </div>
+
+      {totalTasks > 0 && (
+        <div className="text-white">
+          Total Tasks: {totalTasks}
+          <br />
+          {completedTodos.length > 0 && <> Completed Tasks: {completedTasks}</>}
+        </div>
+      )}
     </div>
   );
 };
