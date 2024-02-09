@@ -18,7 +18,7 @@
   }
   .border-color {
     background: rgb(2, 0, 36);
-    border: 3px solid transparent; /* Set border to transparent to make the gradient visible */
+    border: 3px solid transparent;
     border-image: linear-gradient(
       rgba(24, 23, 122, 1) 35%,
       rgba(234, 23, 122, 1) 100%

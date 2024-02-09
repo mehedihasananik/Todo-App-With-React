@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TodoForm from "../TodoForm/TodoForm";
 import { v4 as uuidv4 } from "uuid";
-import EditTodo from "../EditTodo/EditTodo";
 import Todo from "../Todo/Todo";
 
 const TodoManager = () => {
@@ -44,7 +43,9 @@ const TodoManager = () => {
   const editTodo = (id) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
+        todo.id === id
+          ? { ...todo, isEditing: !todo.isEditing }
+          : { ...todo, isEditing: false }
       )
     );
   };
@@ -70,7 +71,7 @@ const TodoManager = () => {
       <TodoForm addTodo={addTodo} />
       {tasksAdded && incompleteTodos.length > 0 && (
         <div>
-          <h2>Incomplete Tasks</h2>
+          <h2 className="text-white py-3">Incomplete Tasks :</h2>
           {incompleteTodos.map((todo) => (
             <Todo
               key={todo.id}
@@ -86,7 +87,7 @@ const TodoManager = () => {
       )}
       {completedTodos.length > 0 && (
         <div>
-          <h2>Completed Tasks</h2>
+          <h2 className="text-white py-3">Completed Tasks :</h2>
           {completedTodos.map((todo) => (
             <Todo
               key={todo.id}
