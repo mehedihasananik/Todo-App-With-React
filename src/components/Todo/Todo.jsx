@@ -1,8 +1,8 @@
-import EditTodo from "../EditTodo/EditTodo";
+import EditTodo from "../EditTodo/EditTodo"; // Importing EditTodo component
 
 const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
   // Determine background color based on priority
-  let priorityColor = "blue"; // Default color for low priority
+  let priorityColor = "blue";
   let color = "white";
   if (todo.priority === "medium") {
     priorityColor = "yellow";
@@ -16,7 +16,7 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
 
   return (
     <div>
-      {/* Render EditTodo component conditionally */}
+      {/* Render EditTodo component conditionally when editing */}
       {todo.isEditing ? (
         <EditTodo todo={todo} editTask={editTask} />
       ) : (
@@ -25,20 +25,23 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
           className="flex justify-between items-center text-white p-3 rounded mb-4"
         >
           <label className="flex items-center">
+            {/* Checkbox to toggle completion status */}
             <input
               type="checkbox"
               checked={todo.completed}
               onChange={() => toggleTodo(todo.id)}
               className="mr-2 cursor-pointer"
             />
+            {/* Displaying task with priority, strike-through if completed */}
             <p
               className={`${
                 todo.completed ? "line-through" : ""
               } cursor-pointer`}
             >
-              {taskWithPriority} {/* Display task name with priority */}
+              {taskWithPriority}
             </p>
           </label>
+          {/* Buttons for editing and deleting todo */}
           <div>
             <button
               className="mx-2 bg-red-500 text-white px-4 py-2"
