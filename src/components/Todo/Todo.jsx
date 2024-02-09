@@ -43,12 +43,14 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
           </label>
           {/* Buttons for editing and deleting todo */}
           <div>
-            <button
-              className="mx-2 bg-red-500 text-white px-4 py-2"
-              onClick={() => editTodo(todo.id)}
-            >
-              Edit
-            </button>
+            {!todo.completed && ( // Render "Edit" button only if the task is incomplete
+              <button
+                className="mx-2 bg-red-500 text-white px-4 py-2"
+                onClick={() => editTodo(todo.id)}
+              >
+                Edit
+              </button>
+            )}
             <button
               className="bg-red-500 text-white px-4 py-2"
               onClick={() => deleteTodo(todo.id)}
