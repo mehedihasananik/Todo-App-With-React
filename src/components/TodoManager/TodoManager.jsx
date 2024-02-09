@@ -7,24 +7,22 @@ const TodoManager = () => {
   const [todos, setTodos] = useState([]);
   const [tasksAdded, setTasksAdded] = useState(false);
 
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    if (storedTodos.length > 0) {
+      setTodos(storedTodos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   const priorityColors = {
     low: "blue",
     medium: "yellow",
     high: "red",
   };
-  useEffect(() => {
-    // Load todos from local storage when component mounts
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-      setTasksAdded(true); // Set tasksAdded to true when todos are loaded
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save todos to local storage whenever todos state changes
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
 
   const addTodo = (todo) => {
     const newTodo = {
@@ -32,6 +30,7 @@ const TodoManager = () => {
       task: todo.task,
       priority: todo.priority,
       completed: false,
+      inCompleted: true,
       isEditing: false,
     };
     setTodos([...todos, newTodo]);
@@ -43,29 +42,26 @@ const TodoManager = () => {
   };
 
   const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
+    setTodos(updatedTodos);
   };
 
   const editTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, isEditing: !todo.isEditing }
-          : { ...todo, isEditing: false }
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, isEditing: !todo.isEditing }
+        : { ...todo, isEditing: false }
     );
+    setTodos(updatedTodos);
   };
 
   const editTask = (task, id, priority) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, task, priority, isEditing: false } : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, task, priority, isEditing: false } : todo
     );
+    setTodos(updatedTodos);
   };
 
   const completedTodos = todos.filter((todo) => todo.completed);
@@ -79,37 +75,35 @@ const TodoManager = () => {
         </button>
       </div>
       <TodoForm addTodo={addTodo} />
-      {tasksAdded && incompleteTodos.length > 0 && (
-        <div>
-          <h2 className="text-white py-3">Incomplete Tasks :</h2>
-          {incompleteTodos.map((todo) => (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              deleteTodo={deleteTodo}
-              toggleTodo={toggleTodo}
-              editTodo={editTodo}
-              editTask={editTask}
-              priorityColors={priorityColors}
-            />
-          ))}
-        </div>
-      )}
-      {completedTodos.length > 0 && (
-        <div>
-          <h2 className="text-white py-3">Completed Tasks :</h2>
-          {completedTodos.map((todo) => (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              deleteTodo={deleteTodo}
-              toggleTodo={toggleTodo}
-              editTodo={editTodo}
-              priorityColors={priorityColors}
-            />
-          ))}
-        </div>
-      )}
+
+      <div>
+        <h2 className="text-white py-3">Incomplete Tasks :</h2>
+        {incompleteTodos.map((todo) => (
+          <Todo
+            key={todo.id}
+            todo={todo}
+            deleteTodo={deleteTodo}
+            toggleTodo={toggleTodo}
+            editTodo={editTodo}
+            editTask={editTask}
+            priorityColors={priorityColors}
+          />
+        ))}
+      </div>
+
+      <div>
+        <h2 className="text-white py-3">Completed Tasks :</h2>
+        {completedTodos.map((todo) => (
+          <Todo
+            key={todo.id}
+            todo={todo}
+            deleteTodo={deleteTodo}
+            toggleTodo={toggleTodo}
+            editTodo={editTodo}
+            priorityColors={priorityColors}
+          />
+        ))}
+      </div>
     </div>
   );
 };
