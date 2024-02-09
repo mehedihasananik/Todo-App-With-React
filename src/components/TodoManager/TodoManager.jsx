@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoForm from "../TodoForm/TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import Todo from "../Todo/Todo";
@@ -12,20 +12,29 @@ const TodoManager = () => {
     medium: "yellow",
     high: "red",
   };
+  useEffect(() => {
+    // Load todos from local storage when component mounts
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      setTodos(JSON.parse(storedTodos));
+      setTasksAdded(true); // Set tasksAdded to true when todos are loaded
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save todos to local storage whenever todos state changes
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = (todo) => {
-    setTodos([
-      ...todos,
-      {
-        id: uuidv4(),
-        task: todo.task,
-        priority: todo.priority,
-        completed: false,
-        isEditing: false,
-      },
-    ]);
-
-    // Set tasksAdded to true after adding a task
+    const newTodo = {
+      id: uuidv4(),
+      task: todo.task,
+      priority: todo.priority,
+      completed: false,
+      isEditing: false,
+    };
+    setTodos([...todos, newTodo]);
     setTasksAdded(true);
   };
 
@@ -40,6 +49,7 @@ const TodoManager = () => {
       )
     );
   };
+
   const editTodo = (id) => {
     setTodos(
       todos.map((todo) =>

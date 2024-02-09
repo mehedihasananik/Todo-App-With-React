@@ -3,8 +3,10 @@ import EditTodo from "../EditTodo/EditTodo";
 const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
   // Determine background color based on priority
   let priorityColor = "blue"; // Default color for low priority
+  let color = "white";
   if (todo.priority === "medium") {
     priorityColor = "yellow";
+    color = "black";
   } else if (todo.priority === "high") {
     priorityColor = "red";
   }
@@ -19,7 +21,7 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
         <EditTodo todo={todo} editTask={editTask} />
       ) : (
         <div
-          style={{ backgroundColor: priorityColor }}
+          style={{ backgroundColor: priorityColor, color: color }}
           className="flex justify-between items-center text-white p-3 rounded mb-4"
         >
           <label className="flex items-center">
