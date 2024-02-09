@@ -1,4 +1,5 @@
 import EditTodo from "../EditTodo/EditTodo"; // Importing EditTodo component
+/* eslint-disable react/prop-types */
 
 const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
   // Determine background color based on priority
