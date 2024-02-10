@@ -43,7 +43,7 @@ const Todo = ({ todo, deleteTodo, toggleTodo, editTodo, editTask }) => {
             </p>
           </label>
           {/* Buttons for editing and deleting todo */}
-          <div>
+          <div className="flex">
             {!todo.completed && ( // Render "Edit" button only if the task is incomplete
               <button
                 className="mx-2 bg-red-500 text-white px-4 py-2"
